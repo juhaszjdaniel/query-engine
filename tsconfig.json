@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "./dist",
+  },
+  "name": "node_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.ts",
+  "scripts": {
+    "start": "npx tsc && mkdir -p dist/files && cp files/test_csv.csv dist/files/ && node dist/app.js",
+    "test": "jest",
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@typescript-eslint/parser": "^5.4.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+  }
+}
