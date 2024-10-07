@@ -1,23 +1,23 @@
 import fs from "fs";
 import path from "path";
-import { parse } from 'csv-parse';
+import {parse} from 'csv-parse';
 
 export async function processQuery(query: string) {
     // splitting the query into projection and filter parts
     let projections;
     let filters;
     try {
-    const [projectionPart, filterPart] = query.split(' FILTER ');
-    projections = projectionPart.replace('PROJECT ', '').split(', ');
-    filters = filterPart.split(' AND ').map(filter => filter.split(' '));
-    } catch(e){
+        const [projectionPart, filterPart] = query.split(' FILTER ');
+        projections = projectionPart.replace('PROJECT ', '').split(', ');
+        filters = filterPart.split(' AND ').map(filter => filter.split(' '));
+    } catch (e) {
         console.error('Error splitting the query');
         return;
     }
 
     let data;
-    try{
-     data = await readCsv().then((data: any) => data);
+    try {
+        data = await readCsv().then((data: any) => data);
     } catch (e) {
         console.error('Error reading CSV file');
         return;
@@ -58,7 +58,7 @@ export async function processQuery(query: string) {
 async function readCsv() {
     const csvFilePath = path.resolve(__dirname, 'files/test_csv.csv');
 
-    const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
+    const fileContent = fs.readFileSync(csvFilePath, {encoding: 'utf-8'});
 
     return new Promise((resolve, reject) => {
         const parser = parse(fileContent, {
@@ -73,6 +73,7 @@ async function readCsv() {
         });
 
         const resultArray: any[] = [];
+        // use parser to read every line of the records
         parser.on('readable', function () {
             let record: any;
             while (record = parser.read()) {
@@ -82,11 +83,13 @@ async function readCsv() {
         parser.on('error', function (err) {
             reject(err);
         });
+        //finished reading the file
         parser.on('end', function () {
             resolve(resultArray);
         });
     });
 }
 
+// trying out the functions
 processQuery('PROJECT Name, Else, some FILTERS Name = asd');
 processQuery('PROJECT Name, Else, Number FILTER Number >= 4');

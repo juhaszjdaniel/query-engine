@@ -5,3 +5,7 @@ Since I didn't have that much time to do this assignment, there are tradeoffs wi
 - For large datasets, this implementation wouldn't be sufficient. Since all the information is stored in memory, in case of large datasets we would need to use a database to store the data.
 - We have the csv file hardcoded in the function, that should be changed to a parameter.
 
+Would be nice to have types for everything.
+Since it only writes to the console, it would be nice to have a way to write to somewhere else as well.
+Might need some more error handling.
+If there are bigger datasets, the functions should be optimized to handle them. Filters are done first, so that should help a bit.
