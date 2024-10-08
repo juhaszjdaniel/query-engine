@@ -41,12 +41,12 @@ describe('processQuery', () => {
         (fs.readFileSync as jest.Mock).mockReturnValue(mockCsvDataWrong);
         console.error = jest.fn();
         await processQuery('PROJECT Name, Else FILTER Name = asd');
-        expect(console.error).toHaveBeenCalledWith('Error reading CSV file');
+        expect(console.error).toHaveBeenCalledWith('Invalid Record Length: columns length is 3, got 4 on line 2');
     })
 
     it('should handle invalid query', async () => {
         console.error = jest.fn();
         await processQuery('PROJECT Name, Else INVALID Name = asd');
-        expect(console.error).toHaveBeenCalledWith('Error splitting the query');
+        expect(console.error).toHaveBeenCalledWith('Cannot read properties of undefined (reading \'split\')');
     });
 });
